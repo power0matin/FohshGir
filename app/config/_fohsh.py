@@ -13,7 +13,6 @@ FOHSH = [
     "گوه",
     "کون",
     "کیری",
-    "کسکش",
     "سگ پدر",
     "پدرسگ",
     "شاش",
@@ -75,9 +74,10 @@ FOHSH = [
     "زنتو",
     "زن جنده",
     "بکنمت",
-    "بکن",
     "بکن توش",
     "بکنش",
+    "بگا",
+    "میگام",
     "لز",
     "سکس",
     "سکسی",
@@ -85,6 +85,7 @@ FOHSH = [
     "ساک بزن",
     "پورن",
     "سکسیی",
+    "خارکصه",
     "کونن",
     "کیرر",
     "بدبخت",
@@ -190,11 +191,11 @@ FOHSH = [
     "باسن",
     "جکس",
     "سگ صفت",
-    "کصکش",
     "مشروب",
     "عرق خور",
     "سکس چت",
-    "جوون",
+    "حرومزادهه",
+    "حرامزاده",
     "سرخور",
     "کلفت",
     "حشر",
@@ -308,7 +309,6 @@ FOHSH = [
     "قرمدنگ",
     "توله سگ",
     "جفنگ",
-    "ریدم",
     "شومبول",
     "دهنتو گاییدم",
     "چسو",
@@ -394,15 +394,30 @@ FOHSH = [
     "گوت",
     "قهبه",
     "سیهدیر",
+    "کیرفیس",
+    "کیراسب",
+    "کیرخر",
+    "kir",
+    "ک‌یر",
+    "kiri",
+    "سیک",
 ]
 
 
 def normalize_to_regex(word: str) -> str:
-    letters = [f"{re.escape(char)}[^\wآ-ی‌]*" for char in word]
-    base_pattern = "".join(letters)
+    pattern_parts = []
+    for char in word:
+        pattern_parts.append(re.escape(char))
+        pattern_parts.append(r"[^\wآ-ی‌]*")
+
+    if pattern_parts:
+        pattern_parts = pattern_parts[:-1]
+
+    base_pattern = "".join(pattern_parts)
     optional_ending = r"[میّت]*"
-    pattern = base_pattern + optional_ending
-    return rf"(?<!\w){pattern}(?!\w)"
+    return (
+        rf"(?:(?<!\w){base_pattern}{optional_ending}(?!\w))|(?<!\w){base_pattern}(?!\w)"
+    )
 
 
 FOHSH_PATTERNS = [re.compile(normalize_to_regex(word), re.IGNORECASE) for word in FOHSH]
