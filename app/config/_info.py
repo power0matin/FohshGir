@@ -1,6 +1,6 @@
 from eiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-VERSION = "v0.1.0"
+VERSION = "v0.1.1"
 GITHUB = "https://github.com/erfjab/fohshnadebot"
 OWNER = "ErfJab"
 
