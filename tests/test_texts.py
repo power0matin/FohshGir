@@ -1,6 +1,9 @@
 from app import texts
 
-def test_texts_have_content():
-    assert hasattr(texts, "WELCOME_MESSAGE")
+def test_text_constants_are_strings():
     assert isinstance(texts.WELCOME_MESSAGE, str)
-    assert texts.WELCOME_MESSAGE.strip() != ""
+    assert isinstance(texts.ERROR_MESSAGE, str)
+
+def test_texts_not_empty():
+    for text in [texts.WELCOME_MESSAGE, texts.ERROR_MESSAGE]:
+        assert text.strip() != ""
